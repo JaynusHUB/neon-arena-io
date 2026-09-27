@@ -9,7 +9,8 @@
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
-    "test:visual": "node test/visual-test.mjs"
+    "test:visual": "node test/visual-test.mjs",
+    "test:prod": "npm run build && node test/prod-render.mjs"
   },
   "engines": {
     "node": "^20.19.0 || >=22.12.0"

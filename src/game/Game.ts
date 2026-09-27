@@ -216,10 +216,16 @@ export class Game {
     window.addEventListener('wheel', this.onWheel, { passive: false, capture: true });
     this.armDprWatch();
 
+    // OYUN DÖNGÜSÜ — constructor'ın sonunda başlatılır. DİKKAT: bu satır
+    // test kancalarının İÇİNDE olmamalı; kancalar üretimde atlanıyor ve
+    // döngü de atlanırsa oyun hiç çizmez (HUD çalışır, oyun donuk kalır).
+    this.lastTime = performance.now();
+    this.rafId = requestAnimationFrame(this.frame);
+
     // TEST KANCA KAPISI — üretimde window'a 17 kanca açılmasın. Gerekçe:
     // konsoldan `test_set_mass` ile oyun bozulabilir. Veri riski yok
     // (istemci-oyun, sunucu yok) ama server/ denemesi leaderboard'a
-    // dönüşürse hile vektörü olur. Vitе DEV'de veya VITE_TEST_HOOKS=1 ile açık.
+    // dönüşürse hile vektörü olur. Vite DEV'de veya VITE_TEST_HOOKS=1 ile açık.
     if (import.meta.env.DEV || import.meta.env.VITE_TEST_HOOKS === '1') this.installTestHooks();
   }
 
@@ -337,9 +343,6 @@ export class Game {
       return true;
     };
     window.test_particle_kinds = () => this.particles.countsByKind();
-
-    this.lastTime = performance.now();
-    this.rafId = requestAnimationFrame(this.frame);
   }
 
   destroy(): void {
