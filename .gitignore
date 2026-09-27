@@ -13,6 +13,11 @@ build/
 .cache/
 .vite/
 
+# Doğrulama artefaktları (doküman DEĞİL — kalıcı ekran görüntüleri docs/screenshot-*.png)
+docs/live-*.png
+docs/prod-*.png
+docs/diag-*.png
+
 # Test çıktıları — her koşuda yeniden üretilir
 test/shots/
 test-out.txt
