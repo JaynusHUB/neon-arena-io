@@ -26,7 +26,7 @@ test_last_run.txt
 npm-debug.log*
 yarn-error.log*
 
-# Gizli dosyalar (server/.env.example örnek olarak durur)
+# Gizli dosyalar (depo içinde .env yok, yalnızca şablon)
 .env
 .env.local
 .env.*.local

@@ -63,7 +63,11 @@ declare global {
     test_reset_pulls?: () => number;
     /** test hook'u: ölüm ekranındayken tekrar doğur → başarılı mı */
     test_respawn?: () => boolean;
-    /** test hook'u: parçacık havuzu tür kırılımı (hangi efekt dolduruyor?) */
+    /** test hook'u: (x,y) merkezli yarıçapta VİRÜS TEMİZLE — kaç tane
+     *  silindi. Yeme sahneleri için şart: `virus-eaten` yiyenin kütlesine
+     *  virüs kütlesini doğrudan ekler ve **skor vermez**, dolayısıyla kütle
+     *  ve skor kontrolleri virüsü fark edemez (ölçüldü: 8d'de tam +100). */
+    test_clear_viruses_near?: (x: number, y: number, radius: number) => number;
     test_particle_kinds?: () => Record<string, number>;
     /** test hook'u: efekti kuşan (sahne düzeni) — 'none' tüm slotları boşaltır.
      *  Sahip olma denetimi YOK (test köprüsü doğrudan state yazar). */
@@ -302,6 +306,14 @@ export class Game {
       if (!slot) return false;
       this.state.player.effects[slot] = id;
       return true;
+    };
+    window.test_clear_viruses_near = (x, y, radius) => {
+      const rr = radius * radius;
+      const before = this.state.viruses.length;
+      this.state.viruses = this.state.viruses.filter(
+        (v) => (v.x - x) * (v.x - x) + (v.y - y) * (v.y - y) > rr,
+      );
+      return before - this.state.viruses.length;
     };
     window.test_impact_count = (reset?: boolean) => {
       if (reset) this.impactFx.reset();

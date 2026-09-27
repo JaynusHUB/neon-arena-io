@@ -638,8 +638,9 @@ Skin sprite'ları AI ile üretilir, kod ile **değil**:
 
 ## Bilinen Sınırlar
 
-- **Sunucu yoktur** — oyun tamamen istemcide; `server/` klasörü çok oyunculu
-  altyapı denemesidir ve istemciye **bağlı değildir** (bağlanma noktası yok).
+- **Sunucu yoktur** — oyun tamamen istemcidedir ve **hiçbir ağ isteği yapmaz**
+  (kaynakta `fetch` / `WebSocket` yok). İlerleme verisi yalnızca `localStorage`
+  alanında durur; tarayıcı verisi silinince sıfırlanır.
 - **Hesap yoktur** — tüm ilerleme `localStorage`'dadır (tarayıcı/cihaz bağlı).
 - **Çok oyunculu değildir** — 60 bot aynı fizik motoruyla simüle edilir.
 - **Kütle tavanı yoktur** — büyük hücreler görünür büyük kalır; ekranı kaplama

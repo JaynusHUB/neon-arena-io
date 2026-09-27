@@ -119,10 +119,13 @@ src/
 
 ## Notlar
 
-- **Sunucu yoktur.** `server/` klasörü çok oyunculu bir denemedir; istemciye
-  bağlı değildir ve çalışma zamanında kullanılmaz.
+- **Sunucu yoktur ve ağ isteği yapmaz.** Kodda `fetch` / `WebSocket` yok;
+  ilerleme verisi yalnızca tarayıcının `localStorage` alanında durur. Oyun
+  tek başına, tamamen çevrimdışı çalışır.
 - **Hesap yoktur.** Tüm ilerleme tarayıcıda `localStorage`'da tutulur.
 - **Çok oyunculu değildir.** 60 bot, oyuncuyla **aynı** fizik motorundan geçer.
+  Botlar ve oyuncu için ayrı kod yolu yoktur — hepsi aynı `updatePlayer`,
+  `Growth`, `Devour` fonksiyonlarından geçer.
 - **Skin sprite'ları** `public/skins/` altındadır (~28 MB, 14 PNG). Üretim
   betiği `tools/gen-skins.py`, prompt'ları `tools/SKIN_PROMPTS.md`.
 - **Testler** Playwright + sistem Chrome kullanır. Dev sunucusu açık olmalıdır;
@@ -142,10 +145,10 @@ vercel          # önizleme
 vercel --prod   # yayın
 ```
 
-Vercel otomatik algılaması `server/` klasöründeki ikinci bir `package.json`
-görebildiği için `framework` ve `outputDirectory` açıkça yazılmıştır.
+`framework` ve `outputDirectory` açıkça yazılmıştır — tanımlı olmasalar da
+Vercel otomatik algılar, ama yazılı olması belirsizliği bitiriyor.
 Oyun tamamen statiktir: sunucu fonksiyonu, veritabanı veya build adımı gerekmez.
-`.vercelignore` ile `server/` ve `test/` dağıtımdan da çıkarılabilir.
+`.vercelignore` ile `test/` ve `tools/` dağıtımdan da çıkarılabilir.
 
 **Netlify / GitHub Pages** için: `npm run build` → `dist/` klasörünü yayınlayın.
 Tek sayfalı uygulama olduğu için yönlendirme (rewrite) kuralı gerekmez.

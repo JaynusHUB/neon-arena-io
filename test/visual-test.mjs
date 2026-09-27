@@ -1192,6 +1192,11 @@ try {
       // pencerede çözülüp skoru +1 kaydırıyor, birebir "+100" kontrolünü
       // bozuyordu). 600px: hareket + çekiliş payı tamamen kapsanır.
       await page.evaluate(() => window.test_clear_near_player(600));
+      // VİRÜS TEMİZLİĞİ — `virus-eaten` yiyenin kütlesine virüs kütlesini
+      // doğrudan ekler ve SKOR VERMEZ; bu yüzden 8d(A) 600, 8d(B) 899.8
+      // veriyordu (+100 = 100 kütlelik virüs) ve hiçbir kontrol yakalayamıyordu.
+      // 1500px: uçan virüs 800px/sn, 100ms'lik ölçüm penceresini fazlasıyla örter.
+      await page.evaluate(([x, y]) => window.test_clear_viruses_near(x, y, 1500), [SX, SY]);
       // Eski ölüm/POOF parçacıklarını söndür → yerel patlama sayımı 0'dan başlar
       await page.evaluate(([x, y]) => window.test_clear_particles(x, y, 200), [SX, SY]);
     };
@@ -1209,6 +1214,9 @@ try {
     // TESHİS: savaş öncesi kilitlenen kütle + sahneye YAKIN bot sayısı.
     // Beklenen: oyuncu 400, bot 100, yakında 1 bot. Sapma varsa ya kütle
     // kaymış ya da ikinci bir kurban menzile girmiş demektir.
+    const aNearV = (aPre.viruses ?? []).filter(
+      (v) => Math.hypot(v.x - SX, v.y - SY) < 1500,
+    ).length;
     const aNear = aPre.bots.filter(
       (b) => Math.hypot(b.x - SX, b.y - SY) < 1500,
     ).length;
@@ -1223,7 +1231,7 @@ try {
     check(
       'yutma: oyuncu botu yuttu — mass + skor devri (agar.io kuralı)',
       badA.length === 0,
-      `mass=${a1.player.mass} (beklenen 500 ±${aTol.toFixed(2)}) score=${aPre.player.score}→${a1.player.score} (beklenen +100) botCount=${a1.botCount} | ÖNCESİ: player=${aPre.player.mass} bot=${aPre.bots[B].mass} sahnedeYakinBot=${aNear}` +
+      `mass=${a1.player.mass} (beklenen 500 ±${aTol.toFixed(2)}) score=${aPre.player.score}→${a1.player.score} (beklenen +100) botCount=${a1.botCount} | ÖNCESİ: player=${aPre.player.mass} bot=${aPre.bots[B].mass} sahnedeYakinBot=${aNear} sahnedeVirüs=${aNearV}` +
         (badA.length ? ` | BOZUK: ${badA.join(',')}` : ''),
     );
     const aBotDist = Math.hypot(a1.bots[B].x - SX, a1.bots[B].y - SY);
@@ -1241,6 +1249,7 @@ try {
       ([x, y]) => window.test_count_particles(x, y, 200),
       [SX, SY],
     );
+    const bPre12 = JSON.parse(await page.evaluate(() => window.render_game_to_text()));
     await page.evaluate(() => window.test_set_combat(true));
     await page.evaluate(() => window.advanceTime(100));
     await page.evaluate(() => window.test_set_combat(false));
@@ -1280,7 +1289,7 @@ try {
     check(
       'yutma: yiyen bot mass devrini aldı',
       Math.abs(b1.bots[B].mass - 800) <= bTol,
-      `bot mass=${b1.bots[B].mass} (beklenen 800 ±${bTol.toFixed(2)})`,
+      `bot mass=${b1.bots[B].mass} (beklenen 800 ±${bTol.toFixed(2)}) | öncesi=${bPre12.bots[B].mass} Δ=${(b1.bots[B].mass - bPre12.bots[B].mass).toFixed(2)} (beklenen Δ300) skorΔ=${b1.bots[B].score - bPre12.bots[B].score}`,
     );
 
     // (C) YUTMA EŞİĞİ: 110 vs 100 (< ×1.15) → üst üste gelseler bile YUTMA YOK
