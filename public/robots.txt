@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Oyun-oyun: indeksleme gerekmez, yalnizca link onizlemesi icin
+Disallow: /index.html

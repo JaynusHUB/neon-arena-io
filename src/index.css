@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+/*
+ * index.css — yalnızca yapısal sıfırlama.
+ * Renk/boyut/animasyon DEĞERLERİ burada YASAK (theme/visualTheme.ts tek kaynak).
+ * Arka plan canvas üzerinde çizilir (develop-web-game kuralı).
+ */
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root,
+#app-root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+#app-root {
+  touch-action: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+canvas#game-canvas {
+  display: block;
+  touch-action: none;
+}

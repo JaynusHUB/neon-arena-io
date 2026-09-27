@@ -1,0 +1,27 @@
+{
+  "name": "neon-arena-server",
+  "version": "0.1.0",
+  "private": true,
+  "description": "NEON ARENA .io authoritative game server (Node + WebSocket, 20Hz tick). Client henüz bağlı DEĞİL — iskelet + protokol + DB hazır.",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/index.js",
+    "db:push": "drizzle-kit push"
+  },
+  "dependencies": {
+    "drizzle-orm": "^0.36.0",
+    "ioredis": "^5.4.0",
+    "pg": "^8.13.0",
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/pg": "^8.11.0",
+    "@types/ws": "^8.5.0",
+    "drizzle-kit": "^0.28.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0"
+  }
+}

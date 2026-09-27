@@ -1,0 +1,36 @@
+# Bağımlılıklar
+node_modules/
+.pnp
+.pnp.js
+
+# Derleme çıktısı
+dist/
+build/
+*.tsbuildinfo
+
+# Araç önbellekleri (üretilen, ~550 KB)
+.fallow/
+.cache/
+.vite/
+
+# Test çıktıları — her koşuda yeniden üretilir
+test/shots/
+test-out.txt
+test_out.txt
+test_last_run.txt
+npm-debug.log*
+yarn-error.log*
+
+# Gizli dosyalar (server/.env.example örnek olarak durur)
+.env
+.env.local
+.env.*.local
+
+# İşletim sistemi
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editörler
+.idea/
+*.swp

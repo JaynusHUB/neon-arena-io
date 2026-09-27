@@ -1,0 +1,15 @@
+# Satır sonu normalizasyonu — depo DAİMA LF saklar, çalışma kopyası platforma uyar.
+# Neden: core.autocrlf=true olan Windows makinelerinde her dosya "modified"
+# görünür, diffler kirlenir, katkılar bozulur. Bu dosya bunu kalıcı çözer.
+* text=auto eol=lf
+
+# Ikili (dosya degistirilmez)
+*.png binary
+*.jpg binary
+*.webp binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+
+# Vite derleme ciktilari ASLA depoya girmez
+dist/ linguist-generated=true
