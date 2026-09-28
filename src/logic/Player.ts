@@ -428,13 +428,21 @@ export function splitCellMass(
     nc.bvy = Math.sin(angle) * boost;
     owner.cells.push(nc);
   }
-  // Birleşme cezası: gövde büyüdükçe geç birleşir (tavanlı).
-  // TAM KADRO İSTİSNASI (16 parça): kalabalık gövde hızlı toparlanır —
-  // sayaç taban 15 sn (yoksa 16 parça ~35 sn dağınık gezerdi).
-  owner.timeToMerge =
-    owner.cells.length >= sp.maxCells
-      ? timeSec + sp.mergeBaseSec
-      : timeSec + Math.min(sp.mergeMaxSec, sp.mergeBaseSec + massTotal(owner) * sp.mergeMassFactor);
+  // Birleşme cezası: gövde büyüdükçe geç birleşir, parça arttıkça daha da uzar.
+  //
+  // ESKİ: min(max, base + mass×0.02)  +  16 parça istisnası → base
+  //   SORUN 1 (ölü bölge): 15 + mass×0.02, 1.000 kütlede tavana (35sn) dayanıyor;
+  //     1.000 kütlenin ÜSTÜNDE parametre hiç etki etmiyordu. Oyunun son evresi
+  //     tam da orasıydı → büyük gövde hep aynı 35sn'yi bekliyordu.
+  //   SORUN 2 (ters ödül): 16 parça istisnası parçaya EN KISA süreyi veriyordu.
+  //     2 parça 35sn, 16 parça 15sn → bölmek ödüllendiriliyordu.
+  //
+  // YENİ: ln dağılımı tüm kitle aralığında yanıt verir (doygunluk yok) ve parça
+  // sayısı CEZA olarak eklenir (bölmek artık ödül değil, taşıdığı risk).
+  const massTerm =
+    sp.mergeMassLogFactor * Math.log(1 + massTotal(owner) / visualTheme.growth.baseMass);
+  const cellTerm = (owner.cells.length - 1) * sp.mergePerCellSec;
+  owner.timeToMerge = timeSec + Math.min(sp.mergeMaxSec, sp.mergeBaseSec + massTerm + cellTerm);
   syncAggregates(owner, 1);
   return pieces - 1;
 }

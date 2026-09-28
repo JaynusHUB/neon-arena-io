@@ -271,6 +271,15 @@ export const levelMeterCss = `
   pointer-events: none;
   white-space: nowrap;
   font-family: ${hud.fontFamily};
+  /* Koyu levha: bandın gradyanı saf beyaz bir durak kullanıyordu ve oyun
+     zeminİ de saf beyaz → beyaz üstüne beyaz, "LEVEL n" eriyordu.
+     HUD panelleri zaten beyaz zeminde griye çalmamak için koyu; aynı dille
+     burada da: koyu levha + mevcut neon gradyan (yüksek kontrast). */
+  padding: ${x.banner.platePadY}px ${x.banner.platePadX}px;
+  border-radius: ${x.banner.plateRadius}px;
+  background: ${x.banner.plateBg};
+  border: ${x.banner.plateBorder};
+  box-shadow: ${x.banner.plateShadow};
 }
 .lv-banner-main {
   font-size: ${x.banner.size}px;
