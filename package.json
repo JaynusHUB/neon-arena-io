@@ -1,6 +1,11 @@
 {
   "name": "neon-arena-io",
   "private": true,
+  "description": "agar.io tarzı tarayıcı oyunu — 60 bot, 20.000×20.000 px harita, 15 skin, 5 slotlu efekt marketi, coin/XP/rank ekonomisi. TypeScript + Canvas2D, sunucusuz, açık kaynak.",
+  "homepage": "https://github.com/JaynusHUB/neon-arena-io#readme",
+  "repository": { "type": "git", "url": "git+https://github.com/JaynusHUB/neon-arena-io.git" },
+  "bugs": { "url": "https://github.com/JaynusHUB/neon-arena-io/issues" },
+  "keywords": ["game", "agar.io", "canvas", "typescript", "html5", "open-source", "io-game"],
   "license": "MIT",
   "version": "0.1.0",
   "type": "module",

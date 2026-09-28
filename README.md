@@ -5,6 +5,15 @@
 > 5 slotlu efekt marketi ve premium HUD eklendi. Tarayıcıda çalışır, sunucu
 > yoktur, hesap yoktur.
 
+[![Canlı Oyna](https://img.shields.io/badge/oyna-neon--arena.io.vercel.app-22d3ee?style=for-the-badge)](https://neon-arena-io.vercel.app)
+[![GitHub](https://img.shields.io/badge/kod-GitHub-181717?style=for-the-badge)](https://github.com/JaynusHUB/neon-arena-io)
+[![Lisans: MIT](https://img.shields.io/badge/lisans-MIT%20(kod)-brightgreen?style=for-the-badge)](LICENSE)
+[![CC BY-NC-SA 4.0](https://img.shields.io/badge/görseller-CC%20BY--NC--SA%204.0-orange?style=for-the-badge)](LICENSE-ASSETS)
+
+> ### 🎮 [Hemen oyna → neon-arena-io.vercel.app](https://neon-arena-io.vercel.app)
+>
+> Tarayıcıda çalışır, kurulum yok, hesap yok. Kaynak kod tamamen açık.
+
 ![Oynanış](docs/screenshot-gameplay.png)
 
 <sub>Skor okuması + rank ünitesi (sol), canlı sıralama (sağ), 60 bot, 6 000 yem,

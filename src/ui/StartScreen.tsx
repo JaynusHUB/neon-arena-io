@@ -71,6 +71,19 @@ const entryCss = `
   color: ${m.subtitle.color};
   font-size: ${m.subtitle.size}px;
 }
+/* Kaynak bağlantısı — sadece kaynak kod (açık kaynak beyanı) */
+.entry-source {
+  margin-top: 6px;
+  text-align: center;
+  color: ${m.subtitle.color};
+  font-size: ${Math.max(10, Math.round(m.subtitle.size * 0.78))}px;
+  opacity: 0.55;
+  text-decoration: none;
+  border-bottom: 1px dotted currentColor;
+  padding-bottom: 1px;
+  transition: opacity ${e.enterMs}ms ${e.easing};
+}
+.entry-source:hover { opacity: 1; }
 
 .entry-sec { display: flex; flex-direction: column; gap: 8px; }
 .entry-anim { animation: entry-up ${e.enterMs}ms ${e.easing} backwards; }
@@ -239,6 +252,17 @@ export function StartScreen({ game }: { game: Game }) {
           <span><span className="entry-kbd">K</span>oyunda skin değiştir</span>
         </div>
         <p className="entry-sub">{s.hint.text}</p>
+        {/* Kaynak bağlantısı: oyunu beğenen GitHub'a, proje kodunu görmek
+            isteyen oyuna ulaşabilsin. target_blank + rel güvenlik standardı
+            (noopener: yeni sekme açılan sayfa penceremize erişemez). */}
+        <a
+          className="entry-source"
+          href="https://github.com/JaynusHUB/neon-arena-io"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Kaynak kodu açık · MIT
+        </a>
       </form>
     </div>
   );
