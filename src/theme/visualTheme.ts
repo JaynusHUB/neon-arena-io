@@ -1183,6 +1183,67 @@ export const visualTheme = {
     },
 
     hint: { text: 'İsim hücrende ve skor tablosunda görünür', color: '#6b7280', size: 12 },
+
+    /* ---------- KÖŞE DÜĞMESİ: GitHub'da yıldızla ----------
+     *  Tasarım: Uiverse "Star on GitHub" (Kaizen0000). Renkler oyunun neon
+     *  kimliğine eşlendi (dönen halka idle'da nötr, hover'da camgöbeği→mor→
+     *  pembe; yıldız hover'da altın). Kural gereği tüm değerler burada. */
+    github: {
+      /** panel dışı köşe boşluğu (px) */
+      edge: 20,
+      /** küçük ekranlarda daraltma (px) */
+      edgeCompact: 12,
+      height: 50,
+      heightCompact: 40,
+      padX: 20,
+      padXCompact: 14,
+      radius: 999,
+
+      /** düğme gövdesi */
+      bg: 'rgba(7, 10, 18, 0.9)',
+      bgHover: 'rgba(16, 22, 36, 0.95)',
+      insetShadow: 'inset 0 1px 1px rgba(255, 255, 255, 0.14)',
+      dropShadow: '0 10px 30px -12px rgba(0, 0, 0, 0.7)',
+
+      /** dönen konik halka (idle → hover) */
+      ringIdle: ['#2b3140', '#151922', '#2b3140'],
+      ringHover: ['#22d3ee', '#a78bfa', '#f0abfc'],
+      ringOpacity: 0.32,
+      ringOpacityHover: 0.7,
+      ringSpinSec: 4,
+
+      /** parlama süpürmesi (hover'da bir kez) */
+      shine: 'rgba(255, 255, 255, 0.16)',
+      shineMs: 1200,
+
+      /** ikon + ayraç */
+      iconColor: '#9aa3b2',
+      iconColorHover: '#ffffff',
+      iconSize: 21,
+      iconSizeCompact: 18,
+      divider: 'rgba(255, 255, 255, 0.12)',
+      dividerHover: 'rgba(255, 255, 255, 0.4)',
+
+      /** yazı */
+      text: 'GitHub\'da yıldızla',
+      textColor: '#cbd5e1',
+      textColorHover: '#ffffff',
+      textSize: 14,
+      textWeight: 700,
+
+      /** yıldız (boş → hover'da dolu) */
+      starIdle: '#7b8494',
+      starHover: '#fbbf24',
+      starGlow: 'rgba(251, 191, 36, 0.85)',
+      starSize: 19,
+      starSizeCompact: 16,
+
+      /** tıklama patlaması (halka + 8 kıvılcım) */
+      burstColor: 'rgba(251, 191, 36, 0.85)',
+      burstMs: 600,
+      burstRingScale: 2.4,
+      burstFly: 38,
+    },
   },
 } as const;
 
