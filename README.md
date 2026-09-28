@@ -1,52 +1,56 @@
 # NEON ARENA .IO
 
-> **agar.io tarzında** — hareket, büyüme, yutma ve harita ölçeği klasik
-> formüllere sadıktır; üzerine derinlik ekonomisi (coin / XP / rank), 15 skin,
-> 5 slotlu efekt marketi ve premium HUD eklendi. Tarayıcıda çalışır, sunucu
-> yoktur, hesap yoktur.
+**English** · [Türkçe](README.tr.md)
 
-[![Canlı Oyna](https://img.shields.io/badge/oyna-neon--arena.io.vercel.app-22d3ee?style=for-the-badge)](https://neon-arena-io.vercel.app)
-[![GitHub](https://img.shields.io/badge/kod-GitHub-181717?style=for-the-badge)](https://github.com/JaynusHUB/neon-arena-io)
-[![Lisans: MIT](https://img.shields.io/badge/lisans-MIT%20(kod)-brightgreen?style=for-the-badge)](LICENSE)
-[![CC BY-NC-SA 4.0](https://img.shields.io/badge/görseller-CC%20BY--NC--SA%204.0-orange?style=for-the-badge)](LICENSE-ASSETS)
+> **An agar.io-style game** — movement, growth, devouring and map scale stay
+> faithful to the classic formulas; on top of that sits a deep economy
+> (coins / XP / rank), 15 skins, a 5-slot effect market and a premium HUD.
+> Runs in the browser, no server, no account.
 
-> ### 🎮 [Hemen oyna → neon-arena-io.vercel.app](https://neon-arena-io.vercel.app)
+[![Play now](https://img.shields.io/badge/play-neon--arena.io.vercel.app-22d3ee?style=for-the-badge)](https://neon-arena-io.vercel.app)
+[![Code](https://img.shields.io/badge/code-GitHub-181717?style=for-the-badge)](https://github.com/JaynusHUB/neon-arena-io)
+[![License: MIT](https://img.shields.io/badge/license-MIT%20(code)-brightgreen?style=for-the-badge)](LICENSE)
+[![CC BY-NC-SA 4.0](https://img.shields.io/badge/assets-CC%20BY--NC--SA%204.0-orange?style=for-the-badge)](LICENSE-ASSETS)
+
+> ### 🎮 [Play now → neon-arena-io.vercel.app](https://neon-arena-io.vercel.app)
 >
-> Tarayıcıda çalışır, kurulum yok, hesap yok. Kaynak kod tamamen açık.
+> Runs in the browser. No install, no account. Fully open source.
 
-![Oynanış](docs/screenshot-gameplay.png)
+![Gameplay](docs/screenshot-gameplay.png)
 
-<sub>Skor okuması + rank ünitesi (sol), canlı sıralama (sağ), 60 bot, 6 000 yem,
-20 000×20 000 px harita.</sub>
+<sub>Score readout + rank badge (left), live leaderboard (right), 60 bots,
+6 000 food pellets, 20 000×20 000 px map.</sub>
 
 ---
 
-## Efektler
+## Effects
 
-![Efektler](docs/screenshot-fx-split.png)
+![Effects](docs/screenshot-fx-split.png)
 
-<sub>Bölünme anı: mor sonic halkası + 14 radyal enerji çizgisi, hücreyi saran üç
-elips yörüngede gezegenler (amber / mor / gül).</sub>
+<sub>The moment of splitting: a violet sonic ring plus 14 radial energy lines,
+with planets orbiting the cell along three elliptical paths (amber / violet /
+pink).</sub>
 
-**5 slot, 8 efekt** — aynı anda beşi birden kuşanılabilir:
+**5 slots, 8 effects** — all five can be equipped at the same time:
 
-| Slot | Efektler |
+| Slot | Effects |
 |---|---|
-| **İZ** | Neon İz · Yıldız İzi · Rün İzi · **Galaktik İz** |
-| **YUTMA** | Şok Dalgası |
-| **BÖLÜNME** | Sonic Boom |
-| **AURA** | Yörünge |
-| **ATIŞ** | Alev Topu |
+| **TRAIL** | Neon Trail · Star Trail · Rune Trail · **Galactic Trail** |
+| **DEVOUR** | Shockwave |
+| **SPLIT** | Sonic Boom |
+| **AURA** | Orbit |
+| **SHOOT** | Fire Pellet |
 
-Efektler iki katmanlıdır: **imza** katmanı (bölünme/yutma halkaları, radyal
-çizgiler) 16 sabit slotlu ayrı bir sistemdir ve parçacık havuzundan
-**bağımsız** çalışır — yem fırtınasında havuz 240/240 doluyken bile okunur.
-**Doku** katmanı (kırıntı, köz, alev izi) oyunun ortak parçacık havuzunu
-kullanır. Aura ise hiç parçacık üretmez, saf çizimdir.
+Effects are two-layered. The **signature** layer (split/devour rings, radial
+lines) is a separate system with 16 fixed slots that runs **independently** of
+the particle pool — it stays readable even when the pool is 240/240 full during
+a food storm. The **texture** layer (debris, embers, flame trails) draws from
+the game's shared particle pool. The aura produces no particles at all; it is
+pure drawing.
 
 ---
 
-## Kurulum
+## Setup
 
 ```bash
 git clone <repo-url>
@@ -55,168 +59,171 @@ npm install
 npm run dev          # http://localhost:5173
 ```
 
-| Komut | Ne yapar |
+| Command | What it does |
 |---|---|
-| `npm run dev` | Vite geliştirme sunucusu |
-| `npm run build` | `tsc --noEmit` + üretim derlemesi |
-| `npm run typecheck` | Yalnızca tip kontrolü |
-| `npm run test:visual` | 108 kontrollük görsel-işlevsel test suite |
+| `npm run dev` | Vite dev server |
+| `npm run build` | `tsc --noEmit` + production build |
+| `npm run typecheck` | Type check only |
+| `npm run test:visual` | 108-check visual/functional test suite |
 
-**Test suite'i çalıştırmak için iki şey gerekir:**
+**Two things are needed to run the test suite:**
 
 ```bash
-npx playwright install chromium   # tarayıcı paketi (paket indirilmezse hata verir)
-npm run dev                      # AYRI bir terminalde açık kalmalı
+npx playwright install chromium   # browser binary (the suite errors if it is missing)
+npm run dev                      # must stay open in a SEPARATE terminal
 npm run test:visual
 ```
 
-Playwright tarayıcılarını indirmek istemiyorsanız sistem Chrome'u hedefleyebilirsiniz:
-`test/visual-test.mjs` içindeki `chromium.launch()` çağrısını
-`chromium.launch({ channel: 'chrome' })` yapın.
+If you would rather not download the Playwright browsers, target your system
+Chrome instead: change the `chromium.launch()` call in `test/visual-test.mjs`
+to `chromium.launch({ channel: 'chrome' })`.
 
-## Kontroller
+## Controls
 
-| Girdi | Etki |
+| Input | Action |
 |---|---|
-| **Fare** | Hücreyi imlece sürükle |
-| **Space** | Bölünme (16 parçaya kadar) |
-| **W** | Kütle fırlatma |
-| **K** | Skin / efekt marketi |
-| **F** | Tam ekran |
-| **F3** | Virüs teşhis overlay'i |
+| **Mouse** | Drag the cell with the cursor |
+| **Space** | Split (up to 16 pieces) |
+| **W** | Eject mass |
+| **K** | Skin / effect market |
+| **F** | Fullscreen |
+| **F3** | Virus diagnostics overlay |
 
 ---
 
-## Öne çıkanlar
+## Highlights
 
-- **Oyun mantığı referansa sadık** — kütle doğrusal artar, yarıçap
-  `100×√(mass/100)` ile büyür, yutma kuralı ×1.15, yem çekilişi 150 ms
-- **React'ten bağımsız 60 fps döngü** — oyun `requestAnimationFrame` ile ilerler,
-  HUD veriyi kendi zamanında çeker; React asla kare başına render edilmez
-- **Sıfır GC parçacık havuzu** — 240 slot constructor'da bir kez üretilir,
-  çalışma sırasında hiç nesne yaratılmaz
-- **Tek kaynak tema** — tüm renk/boyut/animasyon sayıları
-  `src/theme/visualTheme.ts` içinde; UI'da hardcoded değer yok
-- **Katman mimarisi** — `logic/` asla `render/` importu yapmaz; oyun kuralları
-  çizimden tamamen bağımsızdır
-- **Ölçülebilir görsellik** — 108 kontrollük suite ekran görüntüsünü PNG'ye
-  çözüp piksel sayar; "var" değil **"görünüyor"** der
-- **15 skin + 8 efekt + coin/XP/rank ekonomisi** — hepsi `localStorage`'da
+- **Game logic faithful to the reference** — mass grows linearly, radius grows
+  as `100×√(mass/100)`, the devour rule is ×1.15, food pull is 150 ms
+- **60 fps loop independent of React** — the game advances on
+  `requestAnimationFrame` and the HUD pulls its data on its own schedule; React
+  never re-renders per frame
+- **Zero-GC particle pool** — 240 slots created once in the constructor, no
+  objects allocated at runtime
+- **Single-source theme** — every colour/size/animation number lives in
+  `src/theme/visualTheme.ts`; no hardcoded values in the UI
+- **Layered architecture** — `logic/` never imports `render/`; the game rules
+  are completely independent of drawing
+- **Measurable visuals** — the 108-check suite resolves screenshots to PNG and
+  counts pixels; it asserts not "exists" but **"is visible"**
+- **15 skins + 8 effects + a coin/XP/rank economy** — all of it in `localStorage`
 
 ---
 
-## Dokümantasyon
+## Documentation
 
-📖 **[progress.md](progress.md)** — oyunun tamamı: mimari, tema sistemi, hücre
-fiziği, bot yapay zekâsı, virüs mekaniği, efekt marketi, ekonomi, HUD, test
-sistemi ve dosya haritası.
+📖 **[progress.md](progress.md)** — the entire game: architecture, theme system,
+cell physics, bot AI, virus mechanics, effect market, economy, HUD, test
+system and a file map.
 
-## Proje yapısı
+## Project structure
 
 ```
 src/
-├── game/Game.ts        Ana döngü, olay tüketimi, test kancaları
-├── logic/              Oyun kuralları (saf — render importu YASAK)
-├── render/             Canvas çizimi (sadece okur)
-│   └── fx/             Efekt katmanı (imza / doku / çizim)
-├── ui/                 React HUD ve menüler
-├── skins/              Skin + efekt katalogları, market
-├── progression/        XP eğrisi
-├── input/              İmleç → dünya hedefi
-└── theme/              Görsel kimliğin tek kaynağı
+├── game/Game.ts        Main loop, event consumption, test hooks
+├── logic/              Game rules (pure — importing render is FORBIDDEN)
+├── render/             Canvas drawing (read-only)
+│   └── fx/             Effect layer (signature / texture / draw)
+├── ui/                 React HUD and menus
+├── skins/              Skin + effect catalogs, market
+├── progression/        XP curve
+├── input/              Cursor → world target
+└── theme/              Single source of the visual identity
 ```
 
-## Notlar
+## Notes
 
-- **Sunucu yoktur ve ağ isteği yapmaz.** Kodda `fetch` / `WebSocket` yok;
-  ilerleme verisi yalnızca tarayıcının `localStorage` alanında durur. Oyun
-  tek başına, tamamen çevrimdışı çalışır.
-- **Hesap yoktur.** Tüm ilerleme tarayıcıda `localStorage`'da tutulur.
-- **Çok oyunculu değildir.** 60 bot, oyuncuyla **aynı** fizik motorundan geçer.
-  Botlar ve oyuncu için ayrı kod yolu yoktur — hepsi aynı `updatePlayer`,
-  `Growth`, `Devour` fonksiyonlarından geçer.
-- **Skin sprite'ları** `public/skins/` altındadır (~28 MB, 14 PNG). Üretim
-  betiği `tools/gen-skins.py`, prompt'ları `tools/SKIN_PROMPTS.md`.
-- **Testler** Playwright + sistem Chrome kullanır. Dev sunucusu açık olmalıdır;
-  tarayıcı paketi indirilmemişse `chromium.launch({ channel: 'chrome' })`.
+- **There is no server and it makes no network requests.** There is no `fetch`
+  or `WebSocket` in the code; progression data lives only in the browser's
+  `localStorage`. The game works completely offline, on its own.
+- **No accounts.** All progress is kept in `localStorage`.
+- **It is not multiplayer.** 60 bots run through the **same** physics engine as
+  the player. There is no separate code path for bots versus the player —
+  everything goes through the same `updatePlayer`, `Growth` and `Devour`
+  functions.
+- **Skin sprites** live under `public/skins/` (~28 MB, 14 PNGs). The generator
+  script is `tools/gen-skins.py`, the prompts are in `tools/SKIN_PROMPTS.md`.
+- **Tests** use Playwright + system Chrome. The dev server must be running; if
+  the browser binary is not downloaded, use
+  `chromium.launch({ channel: 'chrome' })`.
 
 ---
 
-## Dağıtım
+## Deployment
 
-**Vercel** için ek yapılandırma gerekmez — Vite algılanır. Depoda hazır bir
-`vercel.json` vardır: derleme komutu, çıktı dizini, önbellek başlıkları ve
-güvenlik başlıkları (aşağıda).
+**Vercel** needs no extra configuration — Vite is detected automatically. The
+repo ships a ready-made `vercel.json`: build command, output directory, cache
+headers and security headers (see below).
 
 ```bash
 npm i -g vercel
-vercel          # önizleme
-vercel --prod   # yayın
+vercel          # preview
+vercel --prod   # deploy
 ```
 
-`framework` ve `outputDirectory` açıkça yazılmıştır — tanımlı olmasalar da
-Vercel otomatik algılar, ama yazılı olması belirsizliği bitiriyor.
-Oyun tamamen statiktir: sunucu fonksiyonu, veritabanı veya build adımı gerekmez.
-`.vercelignore` ile `test/` ve `tools/` dağıtımdan da çıkarılabilir.
+`framework` and `outputDirectory` are written out explicitly — Vercel would
+auto-detect them, but spelling them out removes the ambiguity. The game is
+entirely static: no serverless function, no database, no build step required.
+A `.vercelignore` can also keep `test/` and `tools/` out of the deployment.
 
-**Netlify / GitHub Pages** için: `npm run build` → `dist/` klasörünü yayınlayın.
-Tek sayfalı uygulama olduğu için yönlendirme (rewrite) kuralı gerekmez.
+**Netlify / GitHub Pages**: `npm run build` → publish the `dist/` folder. It is
+a single-page app, so no rewrite rules are needed.
 
-### Güvenlik durumu
+### Security status
 
-| Konu | Durum |
+| Item | Status |
 |---|---|
-| Bağımlılık açıkları (`npm audit`) | **0** — çalışma zamanında yalnızca React |
-| Üçüncü taraf istek / SDK / analytics | **Yok** — CDN, font, ölçüm yok; çalışma tamamen aynı kökende |
-| Gömülü anahtar / parola | **Yok** — `GEMINI_API_KEY` ortamdan okunuyor |
-| Tehlikeli DOM API (`innerHTML`, `eval`, `dangerouslySetInnerHTML`) | **Yok** |
-| Kişisel dosya yolu / mutlak yol | **Yok** |
-| Content-Security-Policy | `vercel.json` içinde **etkin** (üretim derlemesiyle doğrulandı) |
-| Diğer başlıklar | `nosniff`, `X-Frame-Options: DENY`, `Referrer-Policy`, `Permissions-Policy`, HSTS |
-| Test kancaları (`window.test_*`) | **Üretimde kapalı** — yalnızca `DEV` modunda veya `VITE_TEST_HOOKS=1` ile açılır |
+| Dependency vulnerabilities (`npm audit`) | **0** — only React ships at runtime |
+| Third-party requests / SDKs / analytics | **None** — no CDN, fonts or telemetry; the game runs entirely same-origin |
+| Embedded keys / passwords | **None** — `GEMINI_API_KEY` is read from the environment |
+| Dangerous DOM APIs (`innerHTML`, `eval`, `dangerouslySetInnerHTML`) | **None** |
+| Personal file path / absolute path | **None** |
+| Content-Security-Policy | **Active** in `vercel.json` (verified against the production build) |
+| Other headers | `nosniff`, `X-Frame-Options: DENY`, `Referrer-Policy`, `Permissions-Policy`, HSTS |
+| Test hooks (`window.test_*`) | **Disabled in production** — only enabled in `DEV` mode or with `VITE_TEST_HOOKS=1` |
 
-CSP katısıdır (`default-src 'self'`, `object-src 'none'`,
-`frame-ancestors 'none'`). Başlıklar yayınlanmadan önce `dist/` üzerinde
-doğrulanmıştır: oyun açılıyor, skinler yükleniyor, konsol temiz.
+CSP is strict (`default-src 'self'`, `object-src 'none'`,
+`frame-ancestors 'none'`). The headers were verified on `dist/` before
+publishing: the game opens, the skins load, the console is clean.
 
 ---
 
-## Lisans
+## License
 
-**Kod: MIT** · **Görseller (skin sprite'ları): CC BY-NC-SA 4.0**
+**Code: MIT** · **Assets (skin sprites): CC BY-NC-SA 4.0**
 
-Ayrı lisanslar bilinçli bir tercihtir: kod liberal olmalı (topluluk katkısı
-gelsin), görseller ise ticari yeniden dağıtıma kapalı kalsın.
+The split license is a deliberate choice: the code should be liberal (so that
+community contributions come in), while the assets stay closed to commercial
+redistribution.
 
-MIT ne verir: herkes kodu kullanabilir, değiştirebilir, ticari amaçla
-dağıtabilir — tek şart telif bildirimini korumak. Katkı gelmesini ve
-projeyi çatallanmasını istiyorsanız doğru seçim budur.
+What MIT grants: anyone may use, modify and distribute the code commercially —
+the only requirement is keeping the copyright notice. If you want contributions
+and forks, this is the right choice.
 
-Görseller için CC BY-NC-SA: sprite'lar yapay zekâ aracıyla üretildi. Üretimde
-kullandığınız aracın kullanım koşulları kendi arzınızı kısıtlamış olabilir —
-**üretimde kullandığınız aracın şartlarını kontrol edin**; NC (ticari olmayan)
-koşulu bu belirsizliğe karşı bir güvence. NC koşulunu istemiyorsanız CC BY 4.0
-(NC'siz) da uygundur.
+For the assets, CC BY-NC-SA: the sprites were generated with an AI tool. The
+terms of the tool you used in production may already restrict your own rights,
+so **check the terms of the tool you use**; the NC (non-commercial) clause is a
+safeguard against that uncertainty. If you do not want the NC clause, CC BY 4.0
+(without NC) is also suitable.
 
-Kopyalayan (copyleft) lisans isterseniz: **GPL-3.0** türevlerin de açık
-kalmasını zorunlu kılar, **AGPL-3.0** bunu ağ üzerinden kullanıma da
-yayar. Bu tür bir tarayıcı oyunu için genelde ağır kalır ve kurumsal katkıyı
-engeller.
+If you want a copyleft license: **GPL-3.0** requires your derivatives to stay
+open, and **AGPL-3.0** extends that to network use as well. For a browser game
+like this that is generally too heavy, and it blocks corporate contributions.
 
-Lisans dosyaları depoda:
+License files in the repo:
 
-| Dosya | Kapsam | Lisans |
+| File | Scope | License |
 |---|---|---|
-| [`LICENSE`](LICENSE) | `src/**` kaynak kodu | **MIT** |
+| [`LICENSE`](LICENSE) | `src/**` source code | **MIT** |
 | [`LICENSE-ASSETS`](LICENSE-ASSETS) | `public/skins/*.png`, `docs/*.png`, `tools/SKIN_PROMPTS.md` | **CC BY-NC-SA 4.0** |
 
-### agar.io hakkında
+### About agar.io
 
-Bu proje agar.io'nun **oynanış kurallarını** (hareket, büyüme, yutma oranı,
-harita ölçeği) referans alır; kod, görsel ve marka **tamamen özgündür**. Referans
-klon kodu bu depoda **yoktur**.
+This project references agar.io's **gameplay rules** (movement, growth, devour
+ratio, map scale); the code, visuals and branding are **entirely original**. A
+reference clone of the code is **not** present in this repo.
 
-Bununla birlikte: bir ".io" oyunu olarak agar.io'ya benzerliği ilk bakışta
-fark edilir. "birebir" gibi ifadeler yerine **"agar.io tarzında"** demek, isim
-ve oyun markasına ilişkin iddiaları (marka hakkı / ticari görünüm) gereksiz
-yere tartışmaya açmaz. README'nin bu yönü değiştirilmesi önerilir.
+That said: as a ".io" game its resemblance to agar.io is noticeable at first
+glance. Saying **"an agar.io-style game"** rather than "a clone" keeps claims
+about the name and the game branding (trademark / trade dress) from opening up
+a disagreement that isn't needed. It is recommended to keep this framing.
