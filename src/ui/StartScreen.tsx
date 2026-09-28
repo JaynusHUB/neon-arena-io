@@ -415,7 +415,7 @@ export function StartScreen({ game }: { game: Game }) {
           renkler oyunun neon paletine eşlendi. */}
       <a
         className="gh-btn"
-        href="https://github.com/JaynusHUB/neon-arena-io/stargazers"
+        href="https://github.com/JaynusHUB/neon-arena-io"
         target="_blank"
         rel="noopener noreferrer"
         aria-label={`${g.text} — GitHub'da yıldızla`}
