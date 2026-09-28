@@ -621,18 +621,6 @@ export const visualTheme = {
       sheenMs: 1400, // metin parlaması turu
       glowBlur: 18,
       dropY: 14, // girişte aşağıdan yükselme payı (px)
-      /**
-       * Koyu levha. Bandın gradyanı saf beyaz (#dial.headColor) durak kullanıyor
-       * ve OYUN ZEMİNİ DE saf beyaz → beyaz üstüne beyaz, metin eriyordu.
-       * HUD panelleri zaten "beyaz zeminde griye çalmasın" diye koyu; bandı da
-       * aynı dile getiriyoruz: koyu levha + mevcut neon gradyan (yüksek kontrast).
-       */
-      plateBg: 'rgba(10, 14, 24, 0.88)',
-      plateBorder: '1px solid rgba(255, 255, 255, 0.12)',
-      plateRadius: 14,
-      platePadX: 30,
-      platePadY: 16,
-      plateShadow: '0 12px 38px -14px rgba(0, 0, 0, 0.65)',
     },
 
     /** floating text (yükselen +X XP) */
@@ -880,9 +868,7 @@ export const visualTheme = {
     },
 
     /** Space Split + çok hücreli gövde (referans player.js: splitCell/userSplit,
-     *  SPLIT_CELL_SPEED 20, maxCells 16).
-     *  NOT: referans MERGE_TIMER 15'tir; mergeBaseSec artık 10'dur ve bekleme
-     *  kütleye/parça sayısına ln ile bağlıdır (aşağıdaki blokta gerekçesi). */
+     *  SPLIT_CELL_SPEED 20, MERGE_TIMER 15, maxCells 16). */
     split: {
       maxCells: 16, // oyuncu başına parça tavanı (resmi agar.io varsayılanı)
       minSplitMass: 35, // parça sonucu bu mass'in altına düşemez (minik hücre
@@ -893,22 +879,9 @@ export const visualTheme = {
       minBoostSpeed: 280, // boost TABANI (px/sn) — büyük gövdede sönük kalmasın:
       // boost = max(taban×çarpan, minBoost). 100 mass'te etkisiz (680>280).
       boostDecay: 3.2, // boost sönümü (1/sn, exp) — parça ~1sn'de durulur
-      /**
-       * Birleşme beklemesi:
-       *   min(max, base + logFactor×ln(1+mass/baseMass) + perCell×(parça-1))
-       *
-       * NEDEN LOG: doğrusal (mass×k) 1.000 kütlede tavana dayanıyor ve
-       * ÜSTÜNDE tamamen ölüyordu — oyunun son evresi tam da o bölgeydi.
-       * ln, tüm oynanabilir aralıkta (100 → ~300.000) yanıt verir.
-       *
-       * NEDEN perCell: parça arttıkça BEKLEME UZAR. Önceden 16 parça istisnayla
-       * en KISA süreyi alıyordu (bölmek ödüllendiriliyordu): yüksek kütlede
-       * 2 parça 35sn, 16 parça 15sn — ters mantık.
-       */
-      mergeBaseSec: 10, // taban (referans MERGE_TIMER)
-      mergeMassLogFactor: 3, // × ln(1 + mass/baseMass) — doygunluk yok
-      mergePerCellSec: 0.42, // her fazladan parça için +sn (16 parça ≈ +6.3sn)
-      mergeMaxSec: 34, // tavan (yalnız ~300.000 kütlede devreye girer)
+      mergeBaseSec: 15, // taban birleşme süresi (referans MERGE_TIMER)
+      mergeMassFactor: 0.02, // + mass başına ek sn (büyük gövde geç birleşir)
+      mergeMaxSec: 35, // birleşme süresi tavanı
       mergeOverlap: 0.45, // bu oranda örtüşen kendi parçaları birleşir
       pushRadiusRatio: 0.45, // itişme = (r1+r2) × oran /sn (yarıçap-ölçekli:
       // dev parçalar da makul sürede ayrışır; r=100 çiftinde eski 90px/s ile aynı)
@@ -998,13 +971,6 @@ export const visualTheme = {
     radiusRatio: 0.34,
     minSize: 12,
     maxSize: 110,
-    /**
-     * Çok parçalı gövdede isim HER hücreye çizilince 16 kat kopya oluyor
-     * (16×"KENAR" üst üste = okunmaz). Bu yüzden isim yalnızca ilk hücreye
-     * verilir. Ayrıca bu eşiğin altındaki hücrede isim çizilmez: font 12px'e
-     * taban yapıyor ama hücre küçülmeye devam ediyor → yazı hücreyi taşıyor.
-     */
-    minVisibleRadius: 44,
     weight: 700,
     /** kontur kalınlığı = fontPx × oran (siyah kenar her zeminde okunur) */
     borderRatio: 0.14,

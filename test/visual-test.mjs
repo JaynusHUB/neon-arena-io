@@ -1813,38 +1813,9 @@ try {
       `${edgeN} px (limit 25, bx=${bx.toFixed(0)})`,
     );
 
-    // b) KAMERA DÜNYA İÇİNDE KALDI — harita dışı "boşluk" EKRANDA GÖRÜNMÜYOR.
-    //
-    //    Bu kontrol ESKİDEN "sınırın dışı ızgarasız saf beyaz zemin" diye
-    //    ölçüyordu ve düzeltmeden önce burada ~11.000 px buluyordu — yani
-    //    kenarda ekranın ~%40'ı boş beyaz kalıyordu (ölü alan). Kamera artık
-    //    dünyaya kırpıldığı için sınır dışı alan EKRANA SIĞMIYOR ve o boşluk
-    //    ölçülemez. Eski kontrol artık sağlanamaz; onun yerine OLAYIN KENDİSİ
-    //    (daha güçlü, pikselden bağımsız) doğrulanıyor: kameranın dört kenar
-    //    boyunca görüş alanı dünyanın İÇİNDE kaldığı.
-    const camX = s13b.camera.x;
-    const camY = s13b.camera.y;
-    const camZ = s13b.camera.zoom;
-    const halfW = s13b.viewportW / 2 / camZ;
-    const halfH = s13b.viewportH / 2 / camZ;
-    const EPS = 1.5; // alt piksel payı
-    const camOK =
-      camX - halfW >= -EPS &&
-      camX + halfW <= s13b.world.w + EPS &&
-      camY - halfH >= -EPS &&
-      camY + halfH <= s13b.world.h + EPS;
-    check(
-      'kenar: kamera dünya sınırı DIŞINA taşmıyor (ölü beyaz alan yok)',
-      camOK,
-      `sol=${(camX - halfW).toFixed(0)} sag=${(s13b.world.w - (camX + halfW)).toFixed(0)} ` +
-        `ust=${(camY - halfH).toFixed(0)} alt=${(s13b.world.h - (camY + halfH)).toFixed(0)} px pay`,
-    );
-    // Dünya sınırı ekranın sağ kenarında ya da biraz ötesinde → sağda boşluk yok
-    check(
-      'kenar: sınırın dışında EKRANDA beyaz boşluk kalmıyor',
-      bx >= s13b.viewportW - EPS,
-      `sınır ekranda x=${bx.toFixed(0)}, ekran genişliği=${s13b.viewportW}`,
-    );
+    // b) Sınırın DIŞI = ızgarasız saf BEYAZ zemin (beyaz zemin kararı)
+    const voidN = countPixels(pngW, { x: bx + 12, y: 80, w: 60, h: 200 }, [255, 255, 255], 4);
+    check('kenar: dışında ızgarasız saf BEYAZ zemin', voidN >= 8000, `${voidN} px (limit 8000)`);
 
     // c) Yassılaşma: duvara basan hücrede gövde kenara DEK (düz şerit) boyanır.
     //    Yay (tangent) olsaydı şerit boş kalırdı — merkez r/3 içeride clamp

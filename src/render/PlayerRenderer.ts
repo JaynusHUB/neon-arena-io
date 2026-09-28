@@ -356,34 +356,14 @@ export function drawCells(
   fx?: DevourFx,
 ): void {
   const entries: CellView[] = [];
-  // Çok parçalı gövdede isim HER hücreye çizilirse 16 kopya üst üste biner ve
-  // okunmaz bir etiket yığını olur (ölçüldü: 16× aynı isim). Bu yüzden yalnızca
-  // ilk hücre isim taşır. minVisibleRadius'ın altındaki hücrelerde isim hiç
-  // çizilmez — font 12px'e taban yapıyor ama hücre küçülmeye devam ediyor,
-  // yazı hücreyi taşıyordu.
-  const np = visualTheme.nameplate;
   for (const cell of player.cells) {
-    entries.push({
-      cell,
-      pal: PLAYER_PALETTE,
-      name: cell === player.cells[0] && cell.radius >= np.minVisibleRadius ? player.name : '',
-      skin: player.skin,
-      ownerId: player.id,
-      effect: player.effects.aura,
-    });
+    entries.push({ cell, pal: PLAYER_PALETTE, name: player.name, skin: player.skin, ownerId: player.id, effect: player.effects.aura });
   }
   bots.forEach((b, i) => {
     const pal = skinPalette(b.skin) ?? botPaletteAt(i);
-    b.cells.forEach((cell, ci) => {
-      entries.push({
-        cell,
-        pal,
-        name: ci === 0 && cell.radius >= np.minVisibleRadius ? b.name : '',
-        skin: b.skin,
-        ownerId: b.id,
-        effect: 'none',
-      });
-    });
+    for (const cell of b.cells) {
+      entries.push({ cell, pal, name: b.name, skin: b.skin, ownerId: b.id, effect: 'none' });
+    }
   });
   entries.sort((a, b) => a.cell.radius - b.cell.radius); // küçük → büyük
 

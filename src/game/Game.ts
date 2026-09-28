@@ -11,7 +11,7 @@ import { createGameState, stepState } from '../logic/GameState';
 import type { GameState, DeathInfo } from '../logic/GameState';
 import { respawnPlayer } from '../logic/Player';
 import { spawnFood } from '../logic/Food';
-import { createCamera, followCamera, updateCameraZoom, clampCameraToWorld } from '../render/Camera';
+import { createCamera, followCamera, updateCameraZoom } from '../render/Camera';
 import type { Camera } from '../render/Camera';
 import { drawBackground } from '../render/BackgroundRenderer';
 import { drawFoods, drawPellets } from '../render/FoodRenderer';
@@ -226,7 +226,7 @@ export class Game {
     this.lastTime = performance.now();
     this.rafId = requestAnimationFrame(this.frame);
 
-    // TEST KANCA KAPISI — üretimde window'a 18 kanca açılmasın. Gerekçe:
+    // TEST KANCA KAPISI — üretimde window'a 17 kanca açılmasın. Gerekçe:
     // konsoldan `test_set_mass` ile oyun bozulabilir. Veri riski yok
     // (istemci-oyun, sunucu yok) ama server/ denemesi leaderboard'a
     // dönüşürse hile vektörü olur. Vite DEV'de veya VITE_TEST_HOOKS=1 ile açık.
@@ -379,13 +379,6 @@ export class Game {
     delete window.test_reset_pulls;
     delete window.test_respawn;
     delete window.test_particle_kinds;
-    // Aşağıdaki üçü de kuruluyordu ama SİLİNMİYORDU: destroy() sonrası
-    // window'da kalıp closure üzerinden ÖLÜ Game örneğini (dünya + 60 bot +
-    // canvas referansı) tutuyor, hiç toplanamıyordu. Liste kurulumla
-    // birebir eşlenmeli — installTestHooks'a yeni kanca eklenince buraya da ekle.
-    delete window.test_set_effect;
-    delete window.test_clear_viruses_near;
-    delete window.test_impact_count;
     this.canvas.remove();
   }
 
@@ -726,8 +719,6 @@ export class Game {
         followCamera(this.cam, leader.x, leader.y, dt);
         updateCameraZoom(this.cam, leader.radius);
         this.cam.zoom *= this.refDpr / this.dpr;
-        // Sinır kırpma: DPR telafisi SONRASI (zoom kesinleşmiş haliyle) çalışmalı
-        clampCameraToWorld(this.cam, this.state.world, this.viewW, this.viewH);
         return;
       }
     }
@@ -738,8 +729,6 @@ export class Game {
       // Tarayıcı zoom'u telafisi: effZoom = oyunZoom × (referansDPR / güncelDPR)
       // → Ctrl+zoom dpr'ı değiştirse bile efektif görüş alanı sabit kalır.
       this.cam.zoom *= this.refDpr / this.dpr;
-      // Sinır kırpma — harita kenarında ekranın yarısı boş beyaz kalmasın
-      clampCameraToWorld(this.cam, this.state.world, this.viewW, this.viewH);
     }
   }
 
